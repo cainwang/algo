@@ -13,7 +13,9 @@ public class BestTimeToBuyAndSellStock {
      * @param args
      */
     public static void main(String[] args) {
-
+        BestTimeToBuyAndSellStock solution = new BestTimeToBuyAndSellStock();
+        int profit = solution.maxProfit(new int[] {5, 10, 1, 8, 2});
+        System.out.println(profit);
     }
 
     public int maxProfit(int[] prices) {
@@ -31,9 +33,18 @@ public class BestTimeToBuyAndSellStock {
             if (price > previous && previous <= prices[lowIndex]) {
                 lowIndex = i - 1;
             }
+
             // regional high
-            if (price < previous || i == prices.length - 1) {
-                int profit = previous - prices[lowIndex];
+            int high = -1;
+            if (price < previous) {
+                high = previous;
+            }
+            if (price > previous && i == prices.length - 1) {
+                high = price;
+            }
+
+            if (high > 0) {
+                int profit = high - prices[lowIndex];
                 if (profit > maxProfit) {
                     maxProfit = profit;
                 }
