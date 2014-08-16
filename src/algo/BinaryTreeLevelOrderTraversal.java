@@ -6,6 +6,8 @@ package algo;
 import java.util.LinkedList;
 import java.util.List;
 
+import algo.model.TreeNode;
+
 /**
  * @author Cain
  *

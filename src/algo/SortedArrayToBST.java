@@ -1,5 +1,8 @@
 package algo;
 
+import algo.model.TreeNode;
+
+
 public class SortedArrayToBST {
 
     public static void main(String[] args) {

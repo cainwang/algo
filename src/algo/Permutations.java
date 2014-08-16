@@ -30,7 +30,7 @@ public class Permutations {
                 remains.add(num);
             }
 
-            doPermute(new LinkedList<>(), remains, results);
+            doPermute(new LinkedList<Integer>(), remains, results);
         }
 
         return results;
