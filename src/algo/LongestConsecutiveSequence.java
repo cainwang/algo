@@ -51,15 +51,29 @@ public class LongestConsecutiveSequence {
 
                 headMap.remove(after);
                 tailMap.remove(before);
-                tailMap.put(beforeList.get(beforeList.size() - 1), beforeList);
+
+                int tail = beforeList.get(beforeList.size() - 1);
+                List<Integer> existingList = tailMap.get(tail);
+
+                if (existingList == null || existingList.size() < beforeList.size()) {
+                    tailMap.put(tail, beforeList);
+                }
             } else if (afterList != null) {
                 afterList.add(0, num);
                 headMap.remove(after);
-                headMap.put(num, afterList);
+
+                List<Integer> existingList = headMap.get(num);
+                if (existingList == null || existingList.size() < afterList.size()) {
+                    headMap.put(num, afterList);
+                }
             } else if (beforeList != null) {
                 beforeList.add(num);
                 tailMap.remove(before);
-                tailMap.put(num, beforeList);
+
+                List<Integer> existingList = tailMap.get(num);
+                if (existingList == null || existingList.size() < beforeList.size()) {
+                    tailMap.put(num, beforeList);
+                }
             }
 
         }
