@@ -27,7 +27,7 @@ public class Subsets {
 
     public List<List<Integer>> subsets(int[] s) {
         List<List<Integer>> result = new LinkedList<>();
-        result.add(new LinkedList<>());
+        result.add(new LinkedList<Integer>());
 
         Arrays.sort(s);
 
@@ -38,7 +38,7 @@ public class Subsets {
         }
 
         for (int i = 0; i < s.length; i++) {
-            doSubset(result, new LinkedList<>(), remains, i + 1);
+            doSubset(result, new LinkedList<Integer>(), remains, i + 1);
         }
 
         return result;
