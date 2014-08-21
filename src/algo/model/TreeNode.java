@@ -27,4 +27,9 @@ public class TreeNode {
         this.right = node;
         return node;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(val);
+    }
 }
