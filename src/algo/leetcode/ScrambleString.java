@@ -16,8 +16,8 @@ public class ScrambleString {
      * @param args
      */
     public static void main(String[] args) {
-        String s1 = "abc";
-        String s2 = "bac";
+        String s1 = "vfldiodffghyq";
+        String s2 = "vdgyhfqfdliof";
 
         ScrambleString solution = new ScrambleString();
 
@@ -49,8 +49,8 @@ public class ScrambleString {
                 count = 0;
             }
             map.put(s1.charAt(i), ++count);
-
         }
+
         for (int i = start2; i < end2; i++) {
             Integer count = map.get(s2.charAt(i));
 
@@ -64,28 +64,13 @@ public class ScrambleString {
             }
         }
 
-        char firstChar = s1.charAt(start1);
-        int firstCharIndexInS2 = -1;
-        for (int i = start2; i < end2; i++) {
-            if (s2.charAt(i) == firstChar) {
-                firstCharIndexInS2 = i;
-                break;
-            }
-        }
-
         for (int i = 1; i < end1 - start1; i++) {
-            boolean divisionResult = false;
+            boolean noScrambleResult = check(s1, start1, start1 + i, s2, start2, start2 + i)
+                    && check(s1, start1 + i, end1, s2, start2 + i, end2);
+            boolean scrambleResult = check(s1, start1, start1 + i, s2, end2 - i, end2)
+                    && check(s1, start1 + i, end1, s2, start2, end2 - i);
 
-            if (firstCharIndexInS2 < start2 + i) {
-                divisionResult = check(s1, start1, start1 + i, s2, start2, start2 + i)
-                        && check(s1, start1 + i, end1, s2, start2 + i, end2);
-            }
-            if (!divisionResult && firstCharIndexInS2 >= end2 - i) {
-                divisionResult = check(s1, start1, start1 + i, s2, end2 - i, end2)
-                        && check(s1, start1 + i, end1, s2, start2, end2 - i);
-            }
-
-            if (divisionResult) {
+            if (noScrambleResult || scrambleResult) {
                 return true;
             }
         }
