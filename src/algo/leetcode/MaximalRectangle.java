@@ -16,7 +16,14 @@ public class MaximalRectangle {
      * @param args
      */
     public static void main(String[] args) {
-        char[][] matrix = { { '1', '1' }, {'1', '0'} };
+        char[][] matrix = { { '0', '1', '0', '0', '1', '0', '0', '0', '0', '1', '1', '0', '0', '1', '1' },
+                { '0', '0', '0', '0', '0', '1', '1', '0', '1', '0', '0', '1', '0', '0', '1' },
+                { '0', '0', '0', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0' },
+                { '0', '0', '0', '0', '1', '0', '1', '1', '1', '1', '1', '0', '0', '1', '1' },
+                { '0', '1', '0', '1', '0', '0', '1', '1', '0', '0', '0', '0', '0', '1', '1' },
+                { '0', '0', '0', '1', '1', '0', '1', '1', '1', '0', '0', '0', '1', '1', '1' },
+                { '1', '1', '1', '0', '0', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0' },
+                { '0', '1', '0', '1', '0', '0', '1', '1', '1', '1', '0', '0', '0', '0', '1' } };
 
         MaximalRectangle solution = new MaximalRectangle();
         int result = solution.maximalRectangle(matrix);
@@ -46,6 +53,10 @@ public class MaximalRectangle {
         int key = row * matrixWidth + col;
         int[] result = cache.get(key);
 
+        if (col == 6) {
+            System.out.println();
+        }
+
         if (result != null) {
             return result;
         }
@@ -66,21 +77,40 @@ public class MaximalRectangle {
             corner = traverse(matrix, row + 1, col + 1);
         }
 
-
         if (value == '1') {
             if (below != null && right != null) {
                 int plusRightWidth = right[0] + 1;
                 int plusRightHeight = Math.min(below[1], right[1] - 1) + 1;
                 int plusRightArea = plusRightWidth * plusRightHeight;
 
-                int plusBelowWidth = Math.min(below[0] - 1, right[1]) + 1;
+                int plusBelowWidth = Math.min(below[0] - 1, right[0]) + 1;
                 int plusBelowHeight = below[1] + 1;
                 int plusBelowArea = plusBelowWidth * plusBelowHeight;
+
+                int width, height, area;
+                if (plusRightArea > plusBelowArea) {
+                    width = plusRightWidth;
+                    height = plusRightHeight;
+                    area = plusRightArea;
+                } else {
+                    width = plusBelowWidth;
+                    height = plusBelowHeight;
+                    area = plusBelowArea;
+                }
 
                 if (corner != null) {
                     int plusCornerWidth = Math.min(corner[0], right[0]) + 1;
                     int plusCornerHeight = Math.min(corner[1], below[1]) + 1;
+                    int plusCornerArea = plusCornerWidth * plusCornerHeight;
+
+                    if (plusCornerArea > area) {
+                        width = plusCornerWidth;
+                        height = plusCornerHeight;
+                        area = plusCornerArea;
+                    }
                 }
+
+                result = new int[] { width, height };
             } else if (below != null) {
                 result = new int[] { 1, below[1] + 1 };
             } else if (right != null) {
