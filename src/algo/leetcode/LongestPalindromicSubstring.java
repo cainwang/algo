@@ -25,10 +25,6 @@ public class LongestPalindromicSubstring {
         String maxPalindrome = "";
 
         for (int i = 0; i < s.length(); i++) {
-            if (i == 4) {
-                System.out.println();
-            }
-
             String result = findPalindromeLength(s, i, true);
             if (result.length() > maxPalindrome.length()) {
                 maxPalindrome = result;
